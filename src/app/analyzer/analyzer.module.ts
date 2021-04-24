@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { AnalyzerComponent } from './analyzer.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { DemoMaterialModule } from '../material-module';
 
 @NgModule({
   declarations: [
@@ -11,7 +12,8 @@ import { BrowserModule } from '@angular/platform-browser';
   imports: [
     CommonModule,
     BrowserModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DemoMaterialModule
   ],
   exports: [AnalyzerComponent]
 })

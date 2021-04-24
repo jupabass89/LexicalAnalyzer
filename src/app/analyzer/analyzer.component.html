@@ -1,13 +1,19 @@
 <article>
   <form class="main-form" [formGroup]="mainForm" (ngSubmit)="onSubmit()">
-    <textarea name="text-input" id="text-input" cols="50" rows="30" formControlName="textArea"></textarea>
-    <button class="process-button">Procesar</button>
+    <h1 class="mat-h2 analyzer-title" color="primary">Ingrese su código Typescript</h1>
+    <textarea class="text-area" name="text-input" id="text-input" formControlName="textArea"></textarea>
+    <button class="process-button" mat-raised-button color="primary">Primary</button>
   </form>
 </article>
-<article class="main-list" *ngIf="showList">
-  <div *ngFor="let token of tokenList" class="token" >
-    <div class="token-div">{{ token }}</div>
-    <div class="token-div"> - </div>
-  </div>
-</article>
-
+<mat-card class="main-list" *ngIf="showList">
+  <mat-card *ngFor="let token of tokenList" class="token">
+    <div class="token-field" style="margin-right: 15px;">
+      <div class="analyzer-title">valor</div>
+      <div class="analyzer-value" >{{ token }}</div>
+    </div>
+    <div class="token-field">
+      <div class="analyzer-title">tipo</div>
+      <div> - </div>
+    </div>
+  </mat-card>
+</mat-card>
