@@ -1,8 +1,12 @@
 :host {
-  padding: 50px;
+  padding: 20px;
+  display: flex;
+  // flex-wrap: wrap;
 }
 
 .main-form {
+  width: 100%;
+  max-width: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -13,8 +17,8 @@
 }
 
 .text-area {
-  width: 60%;
-  height: 300px;
+  width: inherit;
+  height: 70vh;
 }
 
 .analyzer-title {
@@ -35,14 +39,16 @@
 }
 
 .main-list {
-  margin: 20px 50px;
+  width: 100%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  border: 1px solid rgb(211, 207, 207);
+  border: 1px solid #d3cfcf;
   border-radius: 4px;
   overflow: scroll;
-  height: 340px;
+  margin: 36px 0px 0px 30px;
+  height: fit-content;
+  min-height: 67vh;
   text-align: center;
 
   .token {
@@ -59,5 +65,20 @@
       margin: 0 5px 10px 0;
       position: relative;
     }
+  }
+}
+
+@media (max-width: 1024px) {
+  :host {
+    flex-wrap: wrap;
+  }
+
+  .main-form {
+    max-width: 100%;
+  }
+
+
+  .main-list {
+    margin: 0;
   }
 }

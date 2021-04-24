@@ -30,10 +30,20 @@ export class AnalyzerComponent implements OnInit {
     }
   }
 
+  reset() {
+
+  }
+
   simpleTokenizer(text?: any) {
     let regex = new RegExp("[ \n]+")
     let list = text.split(regex);
     return list;
+  }
+
+  resetTxtArea() {
+    this.mainForm.get('textArea')?.setValue('');
+    this.showList = false;
+    this.tokenList = [];
   }
 
   // Getters
