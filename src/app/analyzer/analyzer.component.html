@@ -1,0 +1,13 @@
+<article>
+  <form class="main-form" [formGroup]="mainForm" (ngSubmit)="onSubmit()">
+    <textarea name="text-input" id="text-input" cols="50" rows="30" formControlName="textArea"></textarea>
+    <button class="process-button">Procesar</button>
+  </form>
+</article>
+<article class="main-list" *ngIf="showList">
+  <div *ngFor="let token of tokenList" class="token" >
+    <div class="token-div">{{ token }}</div>
+    <div class="token-div"> - </div>
+  </div>
+</article>
+

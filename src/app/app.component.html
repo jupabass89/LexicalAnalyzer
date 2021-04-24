@@ -14,7 +14,7 @@
     </mat-sidenav>
 
     <mat-sidenav-content>
-      <p *ngIf="menuOptionSelected === 0"> Analizador ..</p>
+      <app-analyzer *ngIf="menuOptionSelected === 0"></app-analyzer>
       <app-pdf [url]="url1" *ngIf="menuOptionSelected === 1"></app-pdf>
       <app-pdf [url]="url2" *ngIf="menuOptionSelected === 2"></app-pdf>
       <app-pdf [url]="url1" *ngIf="menuOptionSelected === 3"></app-pdf>

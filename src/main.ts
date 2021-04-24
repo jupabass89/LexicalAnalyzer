@@ -9,6 +9,7 @@ import {DemoMaterialModule} from './app/material-module';
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 import {AppComponent} from './app/app.component';
 import { PdfModule } from './app/pdf/pdf.module';
+import { AnalyzerModule } from './app/analyzer/analyzer.module';
 
 // Default MatFormField appearance to 'fill' as that is the new recommended approach and the
 // `legacy` and `standard` appearances are scheduled for deprecation in version 10.
@@ -22,6 +23,7 @@ import { PdfModule } from './app/pdf/pdf.module';
     DemoMaterialModule,
     MatNativeDateModule,
     PdfModule,
+    AnalyzerModule,
     ReactiveFormsModule,
   ],
   entryComponents: [AppComponent],
