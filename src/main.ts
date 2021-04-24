@@ -1,5 +1,5 @@
 import {HttpClientModule} from '@angular/common/http';
-import {NgModule} from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatNativeDateModule} from '@angular/material/core';
 import {BrowserModule} from '@angular/platform-browser';
@@ -7,8 +7,8 @@ import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {DemoMaterialModule} from './app/material-module';
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
-
-import {SidenavResponsiveExample} from './app/sidenav-responsive-example';
+import {AppComponent} from './app/app.component';
+import { PdfModule } from './app/pdf/pdf.module';
 
 // Default MatFormField appearance to 'fill' as that is the new recommended approach and the
 // `legacy` and `standard` appearances are scheduled for deprecation in version 10.
@@ -21,11 +21,13 @@ import {SidenavResponsiveExample} from './app/sidenav-responsive-example';
     HttpClientModule,
     DemoMaterialModule,
     MatNativeDateModule,
+    PdfModule,
     ReactiveFormsModule,
   ],
-  entryComponents: [SidenavResponsiveExample],
-  declarations: [SidenavResponsiveExample],
-  bootstrap: [SidenavResponsiveExample],
+  entryComponents: [AppComponent],
+  declarations: [AppComponent],
+  bootstrap: [AppComponent],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   providers: [
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
   ]

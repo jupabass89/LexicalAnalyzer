@@ -3,14 +3,17 @@ import {ChangeDetectorRef, Component, OnDestroy} from '@angular/core';
 
 /** @title Responsive sidenav */
 @Component({
-  selector: 'sidenav-responsive-example',
-  templateUrl: 'sidenav-responsive-example.html',
-  styleUrls: ['sidenav-responsive-example.css'],
+  selector: 'app-component',
+  templateUrl: 'app.component.html',
+  styleUrls: ['app.component.css'],
 })
-export class SidenavResponsiveExample implements OnDestroy {
+export class AppComponent {
   mobileQuery: MediaQueryList;
+  menuOptionSelected =1;
+  url1= 'http://www.africau.edu/images/default/sample.pdf'
+  url2='https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
 
-  fillerNav = Array.from({length: 50}, (_, i) => `Nav Item ${i + 1}`);
+  fillerNav = ['Analizador', 'Guía práctica', 'Manual de usuario', 'Manual técnico', 'Equipo']
 
   fillerContent = Array.from({length: 50}, () =>
       `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
@@ -27,14 +30,11 @@ export class SidenavResponsiveExample implements OnDestroy {
     this.mobileQuery.addListener(this._mobileQueryListener);
   }
 
-  ngOnDestroy(): void {
-    this.mobileQuery.removeListener(this._mobileQueryListener);
+  // ngOnDestroy(): void {
+  //   this.mobileQuery.removeListener(this._mobileQueryListener);
+  // }
+
+  selectMenuOption(option: number) {
+    this.menuOptionSelected = option;
   }
-
-  shouldRun = [/(^|\.)plnkr\.co$/, /(^|\.)stackblitz\.io$/].some(h => h.test(window.location.host));
 }
-
-
-/**  Copyright 2020 Google LLC. All Rights Reserved.
-    Use of this source code is governed by an MIT-style license that
-    can be found in the LICENSE file at http://angular.io/license */
