@@ -12,7 +12,6 @@ export class AppComponent implements OnDestroy{
   menuOptionSelected = 0;
   url1= 'http://www.africau.edu/images/default/sample.pdf'
   url2='https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
-
   fillerNav = ['Analizador', 'Guía práctica', 'Manual de usuario', 'Manual técnico', 'Equipo']
 
   private _mobileQueryListener: () => void;

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AnalyzerService } from '../analyzer.service';
+import { Lexico } from '../interfaces/lexico';
 
 @Component({
   selector: 'app-analyzer',
@@ -13,7 +14,7 @@ export class AnalyzerComponent implements OnInit {
 
   mainForm: FormGroup;
   showList = false;
-  tokenList = [];
+  tokenList: Array<Lexico>;
 
   ngOnInit() {
     this.mainForm = this.formBuilder.group({
@@ -24,14 +25,8 @@ export class AnalyzerComponent implements OnInit {
   onSubmit() {
     if(this.mainForm.valid){
       this.showList= true;
-      this.tokenList = [];
-      this.tokenList = this.simpleTokenizer(this.textArea);
-      this.analyzer.analyze(this.tokenList);
+      this.tokenList = this.analyzer.analyze(this.textArea);
     }
-  }
-
-  reset() {
-
   }
 
   simpleTokenizer(text?: any) {
