@@ -1,7 +1,8 @@
 import {MediaMatcher} from '@angular/cdk/layout';
 import {ChangeDetectorRef, Component, OnDestroy} from '@angular/core';
+import { optionsMenu } from './constants/menu-options';
+import { url } from './constants/url';
 
-/** @title Responsive sidenav */
 @Component({
   selector: 'app-component',
   templateUrl: 'app.component.html',
@@ -10,9 +11,8 @@ import {ChangeDetectorRef, Component, OnDestroy} from '@angular/core';
 export class AppComponent implements OnDestroy{
   mobileQuery: MediaQueryList;
   menuOptionSelected = 0;
-  url1= 'http://www.africau.edu/images/default/sample.pdf'
-  url2='https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
-  fillerNav = ['Analizador', 'Guía práctica', 'Manual de usuario', 'Manual técnico', 'Equipo']
+  url = Object.values(url);
+  fillerNav = optionsMenu;
 
   private _mobileQueryListener: () => void;
 
@@ -28,5 +28,9 @@ export class AppComponent implements OnDestroy{
 
   selectMenuOption(option: number) {
     this.menuOptionSelected = option;
+  }
+
+  pdfOptionSelected(i: number): boolean {
+    return this.menuOptionSelected === i && this.menuOptionSelected !== 0 && this.menuOptionSelected !== 4
   }
 }

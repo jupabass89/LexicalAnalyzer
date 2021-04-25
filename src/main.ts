@@ -8,12 +8,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {DemoMaterialModule} from './app/material-module';
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 import {AppComponent} from './app/app.component';
-import { PdfModule } from './app/pdf/pdf.module';
-import { AnalyzerModule } from './app/analyzer/analyzer.module';
+import { PdfModule } from './app/features/pdf/pdf.module';
+import { AnalyzerModule } from './app/features/analyzer/analyzer.module';
 
-// Default MatFormField appearance to 'fill' as that is the new recommended approach and the
-// `legacy` and `standard` appearances are scheduled for deprecation in version 10.
-// This makes the examples that use MatFormField render the same in StackBlitz as on the docs site.
 @NgModule({
   imports: [
     BrowserModule,
@@ -38,8 +35,3 @@ export class AppModule {}
 
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.error(err));
-
-
-/**  Copyright 2020 Google LLC. All Rights Reserved.
-    Use of this source code is governed by an MIT-style license that
-    can be found in the LICENSE file at http://angular.io/license */

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { AnalyzerComponent } from './analyzer.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { DemoMaterialModule } from '../material-module';
+import { DemoMaterialModule } from '../../material-module';
 
 @NgModule({
   declarations: [

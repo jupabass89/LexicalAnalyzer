@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AnalyzerService } from '../analyzer.service';
-import { Lexico } from '../interfaces/lexico';
+import { AnalyzerService } from '../../../services/analyzer.service';
+import { Lexico } from '../../interfaces/lexico';
 
 @Component({
   selector: 'app-analyzer',
