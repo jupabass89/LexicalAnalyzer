@@ -10,6 +10,7 @@ import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 import {AppComponent} from './app/app.component';
 import { PdfModule } from './app/features/pdf/pdf.module';
 import { AnalyzerModule } from './app/features/analyzer/analyzer.module';
+import { TeamModule } from './app/features/team/team.module';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { AnalyzerModule } from './app/features/analyzer/analyzer.module';
     DemoMaterialModule,
     MatNativeDateModule,
     PdfModule,
+    TeamModule,
     AnalyzerModule,
     ReactiveFormsModule,
   ],
