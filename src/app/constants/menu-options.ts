@@ -1,5 +1,5 @@
 export const optionsMenu = [
-  'Analizador',
+  'Automata',
   'Guía práctica',
   'Manual de usuario',
   'Manual técnico',

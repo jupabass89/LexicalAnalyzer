@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { keywords } from '../app/constants/keywords';
-import { regex } from '../app/constants/regex/regex';
-import { Lexico } from '../app/interfaces/lexico';
+import { keywords } from 'src/app/constants/keywords';
+import { regex } from 'src/app/constants/regex/regex';
+import { Lexico } from 'src/app/interfaces/lexico';
+
 
 @Injectable({
   providedIn: 'root'

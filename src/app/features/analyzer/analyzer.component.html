@@ -1,4 +1,4 @@
-<form class="main-form" [formGroup]="mainForm" (ngSubmit)="onSubmit()">
+<!-- <form class="main-form" [formGroup]="mainForm" (ngSubmit)="onSubmit()">
   <h1 class="mat-h2 analyzer-title" color="primary">Ingrese su código Typescript</h1>
   <textarea class="text-area" name="text-input" id="text-input" formControlName="textArea"></textarea>
   <div>
@@ -17,4 +17,48 @@
       <div>{{ token.token }}</div>
     </div>
   </mat-card>
-</mat-card>
+</mat-card> -->
+
+
+<article class="automata">
+  <!-- BUTTONS -->
+  <!-- <div class="options">
+    <button (click)="openDialog()" mat-raised-button color="primary">
+      Ingresar
+    </button>
+
+    <button (click)="openDialog()" mat-raised-button color="accent">
+      Simplificar
+    </button>
+
+    <button (click)="openDialog()" mat-raised-button color="secondary">
+      Limpiar
+    </button>
+
+  </div> -->
+
+  <!-- AUTOMAT -->
+  <div class="options">
+    <button (click)="openDialog()" mat-raised-button color="primary">
+      Ingresar
+    </button>
+
+    <button (click)="openDialog()" mat-raised-button color="accent">
+      Simplificar
+    </button>
+
+    <button (click)="openDialog()" mat-raised-button color="secondary">
+      Limpiar
+    </button>
+
+  </div>
+
+  <mat-card class="main-container">
+    <app-table></app-table>
+
+  </mat-card>
+
+  
+
+
+</article>

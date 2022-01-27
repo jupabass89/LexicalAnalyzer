@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AnalyzerService } from '../../../services/analyzer.service';
+import { MatDialog } from '@angular/material/dialog';
 import { Lexico } from '../../interfaces/lexico';
+import { AnalyzerService } from '../services/analyzer.service';
+import { InputModalComponent } from './input-modal/input-modal.component';
 
 @Component({
   selector: 'app-analyzer',
@@ -10,7 +12,8 @@ import { Lexico } from '../../interfaces/lexico';
 })
 export class AnalyzerComponent implements OnInit {
 
-  constructor(private formBuilder: FormBuilder, private analyzer: AnalyzerService) { }
+  constructor(private formBuilder: FormBuilder, private analyzer: AnalyzerService,
+    public dialog: MatDialog) { }
 
   mainForm: FormGroup;
   showList = false;
@@ -22,27 +25,16 @@ export class AnalyzerComponent implements OnInit {
     });
   }
 
-  onSubmit() {
-    if(this.mainForm.valid){
-      this.showList= true;
-      this.tokenList = this.analyzer.analyze(this.textArea);
-    }
+  openDialog(): void {
+    const dialogRef = this.dialog.open(InputModalComponent, {
+      width: '900px',
+      // data: {name: 'cgjh', animal: 'kangry'}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result,'The dialog was closed');
+      // this.animal = result;
+    });
   }
 
-  simpleTokenizer(text?: any) {
-    let regex = new RegExp("[ \n]+")
-    let list = text.split(regex);
-    return list;
-  }
-
-  resetTxtArea() {
-    this.mainForm.get('textArea')?.setValue('');
-    this.showList = false;
-    this.tokenList = [];
-  }
-
-  // Getters
-  get textArea(): string {
-    return this.mainForm.get('textArea')?.value;
-  }
 }
