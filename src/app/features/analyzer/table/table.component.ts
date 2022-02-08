@@ -1,6 +1,4 @@
-// import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-// import { timeStamp } from 'console';
 import { IAutomata } from '../interfaces/IAutomata';
 import { IState } from '../interfaces/IStae';
 import { IInput, ITransision } from '../interfaces/ITransision';
