@@ -148,4 +148,9 @@ export class InputModalComponent implements OnInit {
     this.dialogRef.close();
   }
 
+
+  public setTableValue(value: any) {
+    
+  }
+
 }
