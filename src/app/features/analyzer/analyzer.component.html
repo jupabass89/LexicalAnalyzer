@@ -39,27 +39,26 @@
 
   <!-- AUTOMAT -->
   <div class="options">
-    <button (click)="openDialog()" mat-raised-button color="primary">
+    <button (click)="openInputDialog()" mat-raised-button color="primary">
       Ingresar
     </button>
 
-    <button (click)="openDialog()" mat-raised-button color="accent">
+    <button (click)="openSimplifyDialog()" mat-raised-button color="accent">
       Simplificar
     </button>
 
-    <button (click)="openDialog()" mat-raised-button color="accent">
+    <button (click)="openInputDialog()" mat-raised-button color="accent">
       Evaluar
     </button>
 
-    <button (click)="openDialog()" mat-raised-button color="secondary">
+    <button (click)="openInputDialog()" mat-raised-button color="secondary">
       Limpiar
     </button>
 
   </div>
 
-  <mat-card class="main-container">
-    <app-table></app-table>
-
+  <mat-card *ngIf="automata" class="main-container">
+    <app-table [automata]="automata"></app-table>
   </mat-card>
 
   

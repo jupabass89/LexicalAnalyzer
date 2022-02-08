@@ -3,6 +3,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { IAutomata } from '../interfaces/IAutomata';
 import { IState } from '../interfaces/IStae';
 import { ITransision } from '../interfaces/ITransision';
 
@@ -54,20 +55,20 @@ export class InputModalComponent implements OnInit {
 
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
-      firstCtrl: [' ', Validators.required],
+      firstCtrl: [''],
       statusControl: [true],
     });
     this.secondFormGroup = this._formBuilder.group({
-      name: ['', Validators.required]
+      name: ['']
     });
     this.lastFormGroup = this._formBuilder.group({
-      transision: ['', Validators.required]
+      transision: ['']
     });
   }
 
   public resetstates() {
     this.states = [];
-    this.firstFormGroup.controls['firstCtrl'].setValue(' ');
+    this.firstFormGroup.controls['firstCtrl'].setValue('');
     this.firstFormGroup.controls['statusControl'].setValue(false);
   }
 
@@ -79,7 +80,7 @@ export class InputModalComponent implements OnInit {
       acceptance: acceptance
     }
     this.states.push(state);
-    this.firstFormGroup.controls['firstCtrl'].setValue(' ');
+    this.firstFormGroup.controls['firstCtrl'].setValue('');
     this.firstFormGroup.controls['statusControl'].setValue(false);
   }
 
@@ -89,7 +90,7 @@ export class InputModalComponent implements OnInit {
     }
     let name = this.secondFormGroup.controls['name'].value;
     this.inputs.push(name);
-    this.secondFormGroup.controls['name'].setValue(' ');
+    this.secondFormGroup.controls['name'].setValue('');
   }
 
   public addTransision(): void {
@@ -99,8 +100,8 @@ export class InputModalComponent implements OnInit {
 
       if (this.currentTransision && this.currentTransision.state === this.currentState.name) {
         this.currentTransision.inputs.push({
-          to: this.states[this.stateIndex].name, // estado
-          value: this.lastFormGroup.controls['transision'].value //entrada
+          value: this.inputs[this.inputIndex].toString(), // entrada
+          to: this.lastFormGroup.controls['transision'].value.toString() // estado
         })
 
       } else {
@@ -111,8 +112,8 @@ export class InputModalComponent implements OnInit {
         }
         this.currentTransision.state = this.currentState.name;
         this.currentTransision.inputs.push({
-          to: this.states[this.stateIndex].name, // estado
-          value: this.lastFormGroup.controls['transision'].value //entrada
+          value: this.inputs[this.inputIndex].toString(), // entrada
+          to: this.lastFormGroup.controls['transision'].value.toString() // estado
         })
       }
 
@@ -128,15 +129,15 @@ export class InputModalComponent implements OnInit {
         }
       }
       this.currentState = this.states[this.stateIndex];
-      // console.log('transitions', this.transisions)
     }
   }
 
-  getAutomata(): any {
-    return {
+  getAutomata(): IAutomata {
+    return <IAutomata>{
       states: this.states,
       inputs: this.inputs,
-      trancisions: this.transisions
+      transicions: this.transisions,
+      type: 0
     }
   }
 

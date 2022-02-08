@@ -7,7 +7,7 @@
       <section class="input-estados">
         <mat-form-field>
           <mat-label>Estado</mat-label>
-          <input matInput placeholder="Nombre del estado" formControlName="firstCtrl" required>
+          <input matInput placeholder="Nombre del estado" formControlName="firstCtrl">
         </mat-form-field>
         <mat-radio-group formControlName="statusControl" class="radio-buttons" aria-label="Select an option">
           <mat-radio-button class="option" [value]="true">Aceptación</mat-radio-button>
@@ -20,7 +20,7 @@
       <div class="manage-buttons">
         <button class="button" mat-raised-button color="secondary" [mat-dialog-close]=""
           cdkFocusInitial>Cancelar</button>
-        <button [disabled]="!states.length" class="button" mat-raised-button color="primary"
+        <button class="button" mat-raised-button color="primary"
           matStepperNext>Siguiente</button>
       </div>
     </form>
@@ -32,16 +32,16 @@
       <section class="input-estados">
         <mat-form-field>
           <mat-label>Entrada</mat-label>
-          <input matInput placeholder="Nombre del estado" formControlName="name" required>
+          <input matInput placeholder="Nombre del estado" formControlName="name" >
         </mat-form-field>
       </section>
-      <div *ngIf="secondFormGroup.valid" class="agregar">
+      <div class="agregar">
         <p (click)="addInput()">+</p>
       </div>
       <div class="manage-buttons">
         <button class="button" mat-raised-button color="secondary" [mat-dialog-close]=""
           cdkFocusInitial>Cancelar</button>
-        <button [disabled]="!inputs.length" class="button" mat-raised-button color="primary"
+        <button class="button" mat-raised-button color="primary"
           matStepperNext>Siguiente</button>
       </div>
     </form>
@@ -64,7 +64,7 @@
         <div class="end-buttons">
           <button class="button" mat-raised-button color="secondary" [mat-dialog-close]=""
             cdkFocusInitial>Cancelar</button>
-          <button [disabled]="(currentState && currentState.name && inputs[inputIndex])" class="button"
+          <button class="button"
             mat-raised-button color="primary" [mat-dialog-close]="getAutomata()" cdkFocusInitial>Finalizar</button>
         </div>
       </div>
