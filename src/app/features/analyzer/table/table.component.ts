@@ -10,7 +10,9 @@ import { IInput, ITransision } from '../interfaces/ITransision';
 })
 export class TableComponent implements OnInit, OnChanges {
 
-  @Input() automata: IAutomata;
+  @Input() automata: IAutomata | undefined;
+
+  public simplifiedAutomata: IAutomata | undefined;
 
   public dataSource: any[];
 
@@ -21,22 +23,24 @@ export class TableComponent implements OnInit, OnChanges {
   public displayedColumns: string[] = [];
 
 
-  ngOnInit(): void {
+  ngOnInit(): void { }
 
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(): void {
     this.setDataTable()
   }
 
   public setDataTable() {
-    if (this.automata) {
+    this.dataSource = [];
+    this.displayedColumns = []
+    if (this.automata && this.automata?.transicions?.length && this.automata.states?.length) {
       let inputs: any = {};
       let row: any = {};
       let rows: any = []
       this.automata.transicions.forEach((trans: ITransision) => {
         trans.inputs.forEach((input: IInput) => { inputs = { ...inputs, [input.value]: input.to } });
-        let acceptance = this.automata.states.find((state: IState) => state.name === trans.state)?.acceptance;
+        let acceptance = this.automata &&
+          this.automata.states &&
+          this.automata.states.find((state: IState) => state.name === trans.state)?.acceptance;
         row = { state: trans.state, ...inputs, acceptance };
         rows.push(row);
       })
@@ -44,6 +48,8 @@ export class TableComponent implements OnInit, OnChanges {
       this.displayedColumns = this.displayedColumns.concat(Object.keys(this.dataSource[0]));
       this.removeItemFromArr(this.displayedColumns, 'state');
       this.displayedColumns.unshift('state');
+    } else {
+      this.automata = undefined
     }
   }
 

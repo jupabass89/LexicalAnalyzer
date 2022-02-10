@@ -1,3 +1,5 @@
+$primary: #3f51b5;
+
 :host {
   padding: 20px;
   display: flex;
@@ -7,8 +9,6 @@
 
 .options {
   display: flex;
-  // width: 100vw;
-  
   justify-content: end;
   align-content: center;
   margin-bottom: 20px;
@@ -19,41 +19,29 @@
   margin-left: 10px;
 }
 
-// .automata {
-//   display: flex;
-//   justify-content: center;
-//   width: 100vw;
-
-//   .container  {
-//     width: 70vw;
-//     height: 70vh;
-//   }
-// }
-
 .automata {
   width: 100%;
   min-height: 80vh;
-  // padding: 20PX 30px;
   display: flex;
   padding: 0 60px;
   flex-direction: column;
   margin: 30px;
   align-content: center;
-
-//     .container  {
-//     height: 80vh;
-//   }
 }
 
 .main-container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  // width: 100vw;
   height: 100%;
-  // padding: 40px;
   overflow: auto;
+
+  .title {
+    font-weight: 700;
+    margin: 15px;
+    color: $primary;
+  }
 
   .table.mat-table {
     padding: 30px 0;

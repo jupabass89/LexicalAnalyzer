@@ -1,47 +1,69 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { keywords } from 'src/app/constants/keywords';
-import { regex } from 'src/app/constants/regex/regex';
-import { Lexico } from 'src/app/interfaces/lexico';
-
-
+import { Observable, of } from 'rxjs';
+import { IAutomata } from '../analyzer/interfaces/IAutomata';
 @Injectable({
   providedIn: 'root'
 })
 export class AnalyzerService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  analyze(text: string) {
-    let tokens = this.simpleTokenizer(text)
-    // console.log('TOKENS',tokens);
-    return tokens;
+  public headers = {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+    // 'Access-Control-Allow-Credentials': 'true',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE'
   }
 
-  simpleTokenizer(text: any): Array<Lexico> {
-    let exp = regex.spacesLines;
-    let lista = text.match(exp);
-    return this.tokenizer(lista);
+
+  public simplifyAutomat(automat: IAutomata): Observable<IAutomata> {
+    let response: IAutomata = {
+      "type": 0,
+      "states": [
+        { "name": "A", "acceptance": false },
+        { "name": "B", "acceptance": true }
+      ],
+      "inputs": [
+        '0',
+        '1'
+      ],
+      "transicions": [
+        {
+          "state": "A",
+          "inputs": [
+            {
+              "value": '0',
+              "to": "A"
+            },
+            {
+              "value": '1',
+              "to": "A"
+            }
+          ]
+        },
+        {
+          "state": "B",
+          "inputs": [
+            {
+              "value": '0',
+              "to": "A"
+            },
+            {
+              "value": '1',
+              "to": "A"
+            }
+          ]
+        }
+      ]
+    }
+    return of(response);
+    return this.http.post<IAutomata>('https://automata.azurewebsites.net/api/simplificar', automat, { headers: this.headers });
   }
 
-  tokenizer(listaInicial: Array<string>) {
-    let tokens = new Array<Lexico>();
-    listaInicial.forEach(str => {
-      if (keywords.indexOf(str.toLowerCase()) > -1) {
-        tokens.push({ valor: str, token: "keyword" })
-      } else if (str.match(regex.numberConst)) {
-        tokens.push({ valor: str, token: "numberConst" })
-      } else if (str.match(regex.strConst)) {
-        tokens.push({ valor: str, token: "charConst" })
-      } else if (str.match(regex.operators)) {
-        tokens.push({ valor: str, token: "operator" })
-      } else if (str.match(regex.separators)) {
-        tokens.push({ valor: str, token: "separator" })
-      } else if (str.match(regex.identifiers)) {
-        tokens.push({ valor: str, token: "identify" })
-      } else if (!str.match(regex.separators) && str != "") {
-        tokens.push({ valor: str, token: "ERROR" })
-      }
-    });
-    return tokens;
+  public evaluate(automat: IAutomata): Observable<any> {
+    return of({})
+    return this.http.post<IAutomata>('https://automata.azurewebsites.net/api/reconocer', automat, { headers: this.headers  });
   }
 }
