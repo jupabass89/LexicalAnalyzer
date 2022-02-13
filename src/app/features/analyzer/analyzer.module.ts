@@ -18,7 +18,8 @@ import { TableComponent } from './table/table.component';
     FormsModule,
     BrowserModule,
     ReactiveFormsModule,
-    DemoMaterialModule
+    DemoMaterialModule,
+    
   ],
   exports: [AnalyzerComponent]
 })

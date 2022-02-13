@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { IAutomata } from '../interfaces/IAutomata';
 import { IState } from '../interfaces/IStae';
-import { ITransision } from '../interfaces/ITransision';
+import { IInput, ITransision } from '../interfaces/ITransision';
 
 // export interface DialogData {
 //   animal: string;
@@ -23,7 +23,6 @@ export class InputModalComponent implements OnInit {
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   lastFormGroup: FormGroup;
-  // enableAddTransision: boolean;
 
   public states!: IState[];
   public inputs: string[] = [];
@@ -32,23 +31,18 @@ export class InputModalComponent implements OnInit {
   public stateIndex: number = 0;
   public inputIndex: number = 0;
   public automata: any;
+  public type!: Number | undefined;
 
   public currentTransision!: ITransision | undefined;
 
   constructor(
     public dialogRef: MatDialogRef<InputModalComponent>,
     private _formBuilder: FormBuilder
-    // ,@Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {
-
     this.states = [
     ]
     this.transisions = []
-    // this.enableAddTransision =  true
-
     this.automata = {}
-
-
   }
 
   selectedStatus: Array<string>;
@@ -68,18 +62,24 @@ export class InputModalComponent implements OnInit {
 
   public resetstates() {
     this.states = [];
+    this.type = undefined;
     this.firstFormGroup.controls['firstCtrl'].setValue('');
     this.firstFormGroup.controls['statusControl'].setValue(false);
   }
 
   public addState(): void {
     let name = this.firstFormGroup.controls['firstCtrl'].value;
-    let acceptance = this.firstFormGroup.controls['statusControl'].value;
-    let state = {
-      name: name,
-      acceptance: acceptance
-    }
-    this.states.push(state);
+    let exist = this.states.find((item: IState) => item.name === name)
+    if (!exist) {
+      let acceptance = this.firstFormGroup.controls['statusControl'].value;
+      let state = {
+        name: name,
+        acceptance: acceptance
+      }
+      this.states.push(state);
+    } else {
+      console.log('ERROR 1: EL ESTADO YA EXISTE')
+    }    
     this.firstFormGroup.controls['firstCtrl'].setValue('');
     this.firstFormGroup.controls['statusControl'].setValue(false);
   }
@@ -89,21 +89,22 @@ export class InputModalComponent implements OnInit {
       this.currentState = this.states[0];
     }
     let name = this.secondFormGroup.controls['name'].value;
-    this.inputs.push(name);
+    let exist = this.inputs.find((item: string) => item === name);
+    if(!exist){
+      this.inputs.push(name);
+    } else {
+      console.log('ERROR 2: LA ENTRADA YA EXISTE')
+    }
     this.secondFormGroup.controls['name'].setValue('');
   }
 
   public addTransision(): void {
-    // PUSH
-
     if (this.currentState && this.currentState.name) {
-
       if (this.currentTransision && this.currentTransision.state === this.currentState.name) {
         this.currentTransision.inputs.push({
           value: this.inputs[this.inputIndex].toString(), // entrada
           to: this.lastFormGroup.controls['transision'].value.toString() // estado
         })
-
       } else {
         // ENTRA LA PRIMER VEZ
         this.currentTransision = {
@@ -116,13 +117,12 @@ export class InputModalComponent implements OnInit {
           to: this.lastFormGroup.controls['transision'].value.toString() // estado
         })
       }
-
+      this.setType()
       if (this.inputs.length - 1 > this.inputIndex) {
         this.inputIndex++;
       } else {
         this.inputIndex = 0;
         this.stateIndex++;
-
         if (this.currentTransision) {
           this.transisions.push(this.currentTransision);
           this.currentTransision = undefined;
@@ -132,25 +132,28 @@ export class InputModalComponent implements OnInit {
     }
   }
 
+  private setType() {
+    let include = this.lastFormGroup.controls['transision'].value.toString().includes(',');
+    if (!this.type) {
+      this.type = include ? 1 : 0;
+    } else {
+      if (this.type !== 1) {
+        this.type = include ? 1 : 0;
+      }
+    }
+  }
+
   getAutomata(): IAutomata {
     return <IAutomata>{
       states: this.states,
       inputs: this.inputs,
       transicions: this.transisions,
-      type: 0
+      type: this.type || 0
     }
   }
 
-  /**
-   * name
-   */
   public sendStates() {
     this.dialogRef.close();
-  }
-
-
-  public setTableValue(value: any) {
-    
   }
 
 }

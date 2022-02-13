@@ -26,7 +26,12 @@ export class TableComponent implements OnInit, OnChanges {
   ngOnInit(): void { }
 
   ngOnChanges(): void {
-    this.setDataTable()
+    try {
+      this.setDataTable()
+    } catch (error) {
+      console.log('ERROR 5: EL automata no está bien formado');
+      window.location.reload();
+    }
   }
 
   public setDataTable() {

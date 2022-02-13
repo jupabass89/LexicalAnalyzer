@@ -14,7 +14,7 @@ export class AnalyzerService {
     'Access-Control-Allow-Origin': '*',
     // 'Access-Control-Allow-Credentials': 'true',
     'Access-Control-Allow-Headers': 'Content-Type',
-    'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE'
+    // 'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE'
   }
 
 
@@ -58,12 +58,12 @@ export class AnalyzerService {
         }
       ]
     }
-    return of(response);
     return this.http.post<IAutomata>('https://automata.azurewebsites.net/api/simplificar', automat, { headers: this.headers });
+    // return of(response);
   }
 
-  public evaluate(automat: IAutomata): Observable<any> {
-    return of({})
-    return this.http.post<IAutomata>('https://automata.azurewebsites.net/api/reconocer', automat, { headers: this.headers  });
+  public evaluate(automat: any): Observable<any> {
+    return this.http.post<IAutomata>('https://automata.azurewebsites.net/api/reconocer', automat, { headers: this.headers });
+    // return of({});
   }
 }

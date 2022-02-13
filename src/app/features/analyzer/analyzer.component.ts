@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AnalyzerService } from '../services/analyzer.service';
-import { InputModalComponent } from './input-modal/input-modal.component';
 import { IAutomata } from './interfaces/IAutomata';
-
 @Component({
   selector: 'app-analyzer',
   templateUrl: './analyzer.component.html',
@@ -13,102 +12,140 @@ export class AnalyzerComponent implements OnInit {
 
   constructor(
     private analyzer: AnalyzerService,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog,
+    private _snackBar: MatSnackBar) { }
 
   public automata!: IAutomata | undefined;
 
-  public evaluate = false;
+  public showEvaluate = false;
 
   public evaluateString!: string;
 
   ngOnInit() { }
 
   public openInputDialog(): void {
-    if (this.automata && this.automata.states?.length && this.automata.inputs?.length) {
-      // console.log('erase')
-      this.clean()
-    }
-    const dialogRef = this.dialog.open(InputModalComponent, {
-      width: '900px',
-    });
-    dialogRef.afterClosed().subscribe((automata: IAutomata) => {
-      this.automata = automata;
-    });
 
-    // let response: IAutomata = {
-    //   "type": 0,
-    //   "states": [
-    //     { "name": "A", "acceptance": false },
-    //     { "name": "B", "acceptance": true }
-    //   ],
-    //   "inputs": [
-    //     '0',
-    //     '1'
-    //   ],
-    //   "transicions": [
-    //     {
-    //       "state": "A",
-    //       "inputs": [
-    //         {
-    //           "value": '0',
-    //           "to": "B"
-    //         },
-    //         {
-    //           "value": '1',
-    //           "to": "A"
-    //         }
-    //       ]
-    //     },
-    //     {
-    //       "state": "B",
-    //       "inputs": [
-    //         {
-    //           "value": '0',
-    //           "to": "B"
-    //         },
-    //         {
-    //           "value": '1',
-    //           "to": "A"
-    //         }
-    //       ]
-    //     }
-    //   ]
-    // }
-    // this.automata = response
+    try {
+      // if (this.automata && this.automata.states?.length && this.automata.inputs?.length) {
+      //   // console.log('erase')
+      //   this.clean()
+      // }
+      // const dialogRef = this.dialog.open(InputModalComponent, {
+      //   width: '900px',
+      // });
+      // dialogRef.afterClosed().subscribe((automata: IAutomata) => {
+      //   this.automata = automata;
+      // });
+
+      let response: IAutomata = {
+        "inputs": [
+          "a",
+          "b"
+        ],
+        "states": [
+          {
+            "acceptance": true,
+            "name": "6"
+          },
+          {
+            "acceptance": false,
+            "name": "0"
+          },
+          {
+            "acceptance": false,
+            "name": "37"
+          }
+        ],
+        "transicions": [
+          {
+            "inputs": [
+              {
+                "to": "6",
+                "value": "a"
+              },
+              {
+                "to": "37",
+                "value": "b"
+              }
+            ],
+            "state": "6"
+          },
+          {
+            "inputs": [
+              {
+                "to": "0",
+                "value": "a"
+              },
+              {
+                "to": "37",
+                "value": "b"
+              }
+            ],
+            "state": "0"
+          },
+          {
+            "inputs": [
+              {
+                "to": "6",
+                "value": "a"
+              },
+              {
+                "to": "37",
+                "value": "b"
+              }
+            ],
+            "state": "37"
+          }
+        ],
+        "type": 0
+      }
+      this.automata = response;
+      this._snackBar.open('Automata ingresado!!', '✔', { duration: 1500, panelClass: ['green-snackbar'] });
+    } catch (error) {
+      this._snackBar.open('Automata mal formado. Valide el formato e ingreselo nuevamente', 'X', { duration: 1500, panelClass: ['red-snackbar'] });
+      this.clean();
+    }
+
+
   }
 
-  public openEvaluateDialog(): void {
-    // if (this.automata) {
-    //   const dialogRef = this.dialog.open(InputModalComponent, {
-    //     width: '900px',
-    //   });
-    //   dialogRef.afterClosed().subscribe((automata: IAutomata) => {
-    //     this.automata = automata;
-    //   });
-    // }
-    // console.log(this.evaluateString)
-
+  public evaluate(): void {
     if (this.automata && this.evaluateString !== '') {
-      this.automata.expression = this.evaluateString;
-      this.analyzer.evaluate(this.automata).subscribe((response: any) => {
-        if (response) {
-          console.log(true);
+      let body = {
+        automata: { ...this.automata },
+        expression: this.evaluateString
+      }
+      this.analyzer.evaluate(body).subscribe((response: any) => {
+        if (response && response.accepted) {
+          this._snackBar.open('Secuencia aceptada!!', '✔', { duration: 1500, panelClass: ['green-snackbar'] });
+        } else {
+          this._snackBar.open('Secuencia rechazada :(', 'X', { duration: 1500, panelClass: ['red-snackbar'] });
         }
+      }, () => {
+        this._snackBar.open('Secuencia rechazada :(', 'X', { duration: 1500, panelClass: ['red-snackbar'] });
       })
     }
   }
 
   public clean() {
-    this.evaluate = false;
+    this.showEvaluate = false;
     this.evaluateString = '';
     this.automata = undefined;
+    this._snackBar.open('Automata eliminado', '✔', { duration: 1500, panelClass: ['green-snackbar'] });
   }
 
   public simplify() {
     if (this.automata) {
       this.analyzer.simplifyAutomat(this.automata).subscribe((automata: IAutomata) => {
-        this.evaluate = true;
-        this.automata = automata;
+        if (automata) {
+          this.showEvaluate = true;
+          this.automata = automata;
+          this._snackBar.open('Automata simplificado', '✔', { duration: 1500, panelClass: ['green-snackbar'] });
+        } else {
+          this._snackBar.open('eL Automata NO pudo ser simplificado', 'X', { duration: 1500, panelClass: ['red-snackbar'] });
+        }
+      }, () => {
+        this._snackBar.open('eL Automata NO pudo ser simplificado', 'X', { duration: 1500, panelClass: ['red-snackbar'] });
       })
     }
   }

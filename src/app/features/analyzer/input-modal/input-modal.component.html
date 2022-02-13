@@ -14,13 +14,13 @@
           <mat-radio-button [value]="false">Rechazo</mat-radio-button>
         </mat-radio-group>
       </section>
-      <div class="agregar">
+      <div *ngIf="firstFormGroup.controls['firstCtrl'].value !== '' " class="agregar">
         <p (click)="addState()">+</p>
       </div>
       <div class="manage-buttons">
         <button class="button" mat-raised-button color="secondary" [mat-dialog-close]=""
           cdkFocusInitial>Cancelar</button>
-        <button class="button" mat-raised-button color="primary"
+        <button *ngIf="states.length" class="button" mat-raised-button color="primary"
           matStepperNext>Siguiente</button>
       </div>
     </form>

@@ -6,5 +6,4 @@ export interface IAutomata {
 	inputs?: string[],
     type?: number,
     transicions?: ITransision[],
-    expression?: string
 }
